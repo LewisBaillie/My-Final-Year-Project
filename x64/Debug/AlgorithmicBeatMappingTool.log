@@ -1,0 +1,16 @@
+﻿  AudioHandler.cpp
+F:\FYP\ActiveFolder\My-Final-Year-Project\AudioHandler.cpp(40,56): warning C4244: '=': conversion from '_Ty' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty=float
+          ]
+  FFT.cpp
+F:\FYP\ActiveFolder\My-Final-Year-Project\FFT.cpp(11,36): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+F:\FYP\ActiveFolder\My-Final-Year-Project\FFT.cpp(14,19): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
+  Generating Code...
+F:\FYP\ActiveFolder\My-Final-Year-Project\AudioHandler.cpp(11): warning C4715: 'AudioHandler::LoadFile': not all control paths return a value
+  AlgorithmicBeatMappingTool.vcxproj -> F:\FYP\ActiveFolder\My-Final-Year-Project\x64\Debug\AlgorithmicBeatMappingTool.exe
