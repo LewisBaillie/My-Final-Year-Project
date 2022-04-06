@@ -5,17 +5,13 @@ bool AudioHandler::LoadFile()
 	mSuccess = audioObj.load("AMinorBird.wav");
 	if (mSuccess)
 	{
-		audioObj.printSummary();
 		return mSuccess;
 	}
 }
 
 std::vector<double> AudioHandler::CombineChannels(AudioHandler handle)
 {
-	std::cout << handle.audioObj.getNumSamplesPerChannel() << std::endl;
-	std::cout << handle.audioObj.getNumChannels() << std::endl;
-	std::cout << (handle.audioObj.getNumSamplesPerChannel() * handle.audioObj.getNumChannels()) << std::endl;
-
+	
 	std::vector<double> usingSamples(handle.audioObj.getNumSamplesPerChannel());
 	std::vector<std::vector<double>> workingSamples(handle.audioObj.getNumChannels());
 
@@ -45,7 +41,6 @@ std::vector<double> AudioHandler::CombineChannels(AudioHandler handle)
 		usingSamples[s] = sampleAverage;
 	}
 
-	std::cout << usingSamples.size() << std::endl;
 	return usingSamples;
 }
 
@@ -55,15 +50,25 @@ void AudioHandler::fft(FFT fftHandle, ComplexArray& sampleArray)
 	fftHandle.window(sampleArray);
 }
 
-int main(int argc, char* argv[])
+std::vector<double> AudioHandler::ConvertToAmplitude(ComplexArray sampleArray)
 {
-	/*char* dir = _getcwd(NULL, 0);
-	printf("%s \nLength: %zu\n",dir,strlen(dir));*/
+	std::vector<double> newSamples;
+	double normalizedAmp;
+	for (int i = 0; i < sampleArray.size(); i++)
+	{
+		normalizedAmp = sqrt(((sampleArray[i].real() * sampleArray[i].real()) + (sampleArray[i].imag() * sampleArray[i].imag()))) / bucketSize;
+		newSamples.push_back(normalizedAmp);
+	}
 
-	std::cout << "\n" << std::endl;
-	AudioHandler handle;
+	return newSamples;
+}
+
+bool AudioHandler::performBeatMapping(AudioHandler handle)
+{
 	bool success = handle.LoadFile();
-	
+
+	SpectralFluxAnalyser sfa;
+
 	std::vector<double> samples;
 
 	void (*p_fft)(FFT, ComplexArray&);
@@ -72,9 +77,9 @@ int main(int argc, char* argv[])
 	if (success)
 	{
 		FFT fftHandle;
-		ComplexArray workingSpectrum;
+		std::vector<double> workingSpectrum;
 		samples = handle.CombineChannels(handle);
-		
+
 		int threads;
 		while (samples.size() > 0)
 		{
@@ -120,6 +125,8 @@ int main(int argc, char* argv[])
 			ComplexArray sampleArray2;
 			ComplexArray sampleArray3;
 
+			std::vector<double> arrayToAdd;
+
 			if (threads == 3)
 			{
 				for (int i = 0; i < handle.bucketSize * 3; i++)
@@ -133,7 +140,7 @@ int main(int argc, char* argv[])
 					{
 						sampleArray2.push_back(workingSample);
 					}
-					else if (i >= handle.bucketSize*2 && i < handle.bucketSize * 3)
+					else if (i >= handle.bucketSize * 2 && i < handle.bucketSize * 3)
 					{
 						sampleArray3.push_back(workingSample);
 					}
@@ -148,17 +155,21 @@ int main(int argc, char* argv[])
 				th2.join();
 				th3.join();
 
+
+				arrayToAdd = handle.ConvertToAmplitude(sampleArray);
 				for (int j = 0; j < sampleArray.size(); j++)
 				{
-					workingSpectrum.push_back(sampleArray[j]);
+					workingSpectrum.push_back(arrayToAdd[j]);
 				}
-				for (int j = 0; j < sampleArray2.size(); j++)
+				arrayToAdd = handle.ConvertToAmplitude(sampleArray2);
+				for (int j = 0; j < sampleArray.size(); j++)
 				{
-					workingSpectrum.push_back(sampleArray2[j]);
+					workingSpectrum.push_back(arrayToAdd[j]);
 				}
-				for (int j = 0; j < sampleArray3.size(); j++)
+				arrayToAdd = handle.ConvertToAmplitude(sampleArray3);
+				for (int j = 0; j < sampleArray.size(); j++)
 				{
-					workingSpectrum.push_back(sampleArray3[j]);
+					workingSpectrum.push_back(arrayToAdd[j]);
 				}
 			}
 			else if (threads == 2)
@@ -182,13 +193,15 @@ int main(int argc, char* argv[])
 				th1.join();
 				th2.join();
 
+				arrayToAdd = handle.ConvertToAmplitude(sampleArray);
 				for (int j = 0; j < sampleArray.size(); j++)
 				{
-					workingSpectrum.push_back(sampleArray[j]);
+					workingSpectrum.push_back(arrayToAdd[j]);
 				}
-				for (int j = 0; j < sampleArray2.size(); j++)
+				arrayToAdd = handle.ConvertToAmplitude(sampleArray2);
+				for (int j = 0; j < sampleArray.size(); j++)
 				{
-					workingSpectrum.push_back(sampleArray2[j]);
+					workingSpectrum.push_back(arrayToAdd[j]);
 				}
 			}
 			else
@@ -200,32 +213,63 @@ int main(int argc, char* argv[])
 					{
 						sampleArray.push_back(workingSample);
 					}
-					
+
 				}
 				std::thread th1(p_fft, fftHandle, std::ref(sampleArray));
 				samples.erase(samples.begin(), samples.begin() + handle.bucketSize);
 
 				th1.join();
 
+				arrayToAdd = handle.ConvertToAmplitude(sampleArray);
 				for (int j = 0; j < sampleArray.size(); j++)
 				{
-					//workingSpectrum will be the finalized FFT result for the whole song
-					workingSpectrum.push_back(sampleArray[j]);
+					workingSpectrum.push_back(arrayToAdd[j]);
 				}
 			}
-
-			
-			for (int j = 0; j < sampleArray.size(); j++)
-			{
-				//workingSpectrum will be the finalized FFT result for the whole song
-				workingSpectrum.push_back(sampleArray[j]);
-			}
-			
-
-
 		}
 
 		std::cout << "FFT COMPLETE" << std::endl;
+		int index = 0;
 
+		while (workingSpectrum.size() > 0)
+		{
+			std::vector<double> sendSpectrum;
+			for (int i = 0; i < handle.bucketSize; i++)
+			{
+				sendSpectrum.push_back(workingSpectrum[i]);
+				index++;
+			}
+			workingSpectrum.erase(workingSpectrum.begin(), workingSpectrum.begin() + handle.bucketSize);
+			sfa.AnalyseSpectrum(sendSpectrum, handle.audioObj.getSampleRate(), ((1.f / handle.audioObj.getSampleRate()) * index) * handle.bucketSize);
+		}
+
+		std::cout << "sfa done" << std::endl;
+
+		for (int i = 0; i < sfa.FluxSamples.size(); i++)
+		{
+			if (sfa.FluxSamples[i].isPeak)
+			{
+				if (handle.beatMap.empty())
+				{
+					handle.beatMap.push_back(sfa.FluxSamples[i].time);
+				}
+				else
+				{
+					handle.beatMap.push_back(sfa.FluxSamples[i].time - handle.beatMap[handle.beatMap.size() - 1]);
+				}
+			}
+		}
+
+		return true;
 	}
+}
+
+int main(int argc, char* argv[])
+{
+	AudioHandler audioHandle;
+	if (audioHandle.performBeatMapping(audioHandle))
+	{
+		std::cout << "Beat Mapped" << std::endl;
+	}
+	
 }

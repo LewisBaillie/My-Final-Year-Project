@@ -15,8 +15,12 @@ public:
 	bool LoadFile();
 	std::vector<double> CombineChannels(AudioHandler handle);
 	static void fft(FFT fftHandle, ComplexArray& sampleArray);
-	
-	int bucketSize = 2048;
+	std::vector<double> ConvertToAmplitude(ComplexArray sampleArray);
+	std::vector<float> beatMap;
+
+	bool performBeatMapping(AudioHandler handle);
+
+	int bucketSize = 1024;
 private:
 	bool mSuccess = false;
 	
