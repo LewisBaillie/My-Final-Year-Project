@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _FFT_H
+#define _FFT_H
+
 #include <vector>
 #include <complex>
 
@@ -11,6 +13,8 @@ class FFT
 {
 public:
 	void fft(ComplexArray& samples);
-	
+	void window(ComplexArray& windowSamples);
 private:
 };
+
+#endif

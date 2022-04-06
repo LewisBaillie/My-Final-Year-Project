@@ -1,8 +1,11 @@
 ﻿  AudioHandler.cpp
-C:\Users\b014699j\Documents\GitHub\My-Final-Year-Project\AudioHandler.cpp(43,41): warning C4244: '+=': conversion from '_Ty' to 'float', possible loss of data
+C:\Users\b014699j\Documents\GitHub\My-Final-Year-Project\AudioHandler.cpp(42,41): warning C4244: '+=': conversion from '_Ty' to 'float', possible loss of data
           with
           [
               _Ty=double
           ]
-C:\Users\b014699j\Documents\GitHub\My-Final-Year-Project\AudioHandler.cpp(12): warning C4715: 'AudioHandler::LoadFile': not all control paths return a value
+  FFT.cpp
+  SpectralFluxAnalyser.cpp
+  Generating Code...
+C:\Users\b014699j\Documents\GitHub\My-Final-Year-Project\AudioHandler.cpp(11): warning C4715: 'AudioHandler::LoadFile': not all control paths return a value
   AlgorithmicBeatMappingTool.vcxproj -> C:\Users\b014699j\Documents\GitHub\My-Final-Year-Project\x64\Debug\AlgorithmicBeatMappingTool.exe

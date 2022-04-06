@@ -1,6 +1,5 @@
 #include "AudioHandler.h"
 
-
 bool AudioHandler::LoadFile()
 {
 	mSuccess = audioObj.load("AMinorBird.wav");
@@ -53,14 +52,13 @@ std::vector<double> AudioHandler::CombineChannels(AudioHandler handle)
 void AudioHandler::fft(FFT fftHandle, ComplexArray& sampleArray)
 {
 	fftHandle.fft(sampleArray);
+	fftHandle.window(sampleArray);
 }
 
 int main(int argc, char* argv[])
 {
 	/*char* dir = _getcwd(NULL, 0);
 	printf("%s \nLength: %zu\n",dir,strlen(dir));*/
-
-	
 
 	std::cout << "\n" << std::endl;
 	AudioHandler handle;
@@ -116,7 +114,6 @@ int main(int argc, char* argv[])
 					threads = 3;
 				}
 			}
-			std::cout << threads << std::endl;
 
 			std::complex<double> workingSample;
 			ComplexArray sampleArray;

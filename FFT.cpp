@@ -44,3 +44,11 @@ void FFT::fft(ComplexArray& samples)
 		samples[k + N / 2] = evenSamples[k] - t;
 	}
 }
+
+void FFT::window(ComplexArray& windowSamples)
+{
+	for (int i = 0; i < windowSamples.size(); i++)
+	{
+		windowSamples[i] = 0.5 - (0.5 * cos((2*PI*i)/(windowSamples.size()-1)));
+	}
+}

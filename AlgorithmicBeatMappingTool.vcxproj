@@ -142,10 +142,12 @@
     <ClInclude Include="AudioFile.h" />
     <ClInclude Include="AudioHandler.h" />
     <ClInclude Include="FFT.h" />
+    <ClInclude Include="SpectralFluxAnalyser.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioHandler.cpp" />
     <ClCompile Include="FFT.cpp" />
+    <ClCompile Include="SpectralFluxAnalyser.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
