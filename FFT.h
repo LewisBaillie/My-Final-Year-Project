@@ -11,5 +11,6 @@ class FFT
 {
 public:
 	void fft(ComplexArray& samples);
+	
 private:
 };
