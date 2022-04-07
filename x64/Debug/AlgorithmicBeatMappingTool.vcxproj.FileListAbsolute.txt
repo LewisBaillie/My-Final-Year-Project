@@ -1,2 +1,0 @@
-F:\FYP\ActiveFolder\My-Final-Year-Project\x64\Debug\AlgorithmicBeatMappingTool.exe
-C:\Users\b014699j\Documents\GitHub\My-Final-Year-Project\x64\Debug\AlgorithmicBeatMappingTool.exe
