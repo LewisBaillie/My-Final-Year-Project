@@ -9,6 +9,22 @@ bool AudioHandler::LoadFile()
 	}
 }
 
+bool AudioHandler::SaveBeatMap(std::vector<float> BeatMap)
+{
+	std::string fileString = "AMinorBird.txt";
+	std::ofstream mapFile(fileString);
+
+	for (int i = 0; i < BeatMap.size(); i++)
+	{
+		mapFile << std::to_string(BeatMap[i]) + "\n";
+	}
+
+	mapFile.close();
+
+	return true;
+}
+
+
 std::vector<double> AudioHandler::CombineChannels(AudioHandler handle)
 {
 	
@@ -228,7 +244,7 @@ bool AudioHandler::performBeatMapping(AudioHandler handle)
 			}
 		}
 
-		std::cout << "FFT COMPLETE" << std::endl;
+		
 		int index = 0;
 
 		while (workingSpectrum.size() > 0)
@@ -249,18 +265,12 @@ bool AudioHandler::performBeatMapping(AudioHandler handle)
 		{
 			if (sfa.FluxSamples[i].isPeak)
 			{
-				if (handle.beatMap.empty())
-				{
-					handle.beatMap.push_back(sfa.FluxSamples[i].time);
-				}
-				else
-				{
-					handle.beatMap.push_back(sfa.FluxSamples[i].time - handle.beatMap[handle.beatMap.size() - 1]);
-				}
+				handle.beatMap.push_back(sfa.FluxSamples[i].time);
 			}
 		}
 
-		return true;
+		std::cout << handle.beatMap.size() << std::endl;
+		return SaveBeatMap(handle.beatMap);
 	}
 }
 

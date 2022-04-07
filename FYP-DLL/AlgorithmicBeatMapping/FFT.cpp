@@ -1,4 +1,6 @@
+#include "pch.h"
 #include "FFT.h"
+
 
 void FFT::fft(ComplexArray& samples)
 {

@@ -10,6 +10,7 @@ SpectralFluxAnalyser::SpectralFluxAnalyser()
 
 void SpectralFluxAnalyser::AnalyseSpectrum(std::vector<double> workingSamples, int sampleRate, float time)
 {
+	previousSpectrum = currentSpectrum;
 	currentSpectrum = workingSamples;
 	//EXAMPLE of how to work out hz per bin
 		//samplerate / nyquist frequency / size of spectrum to analyze
@@ -26,12 +27,13 @@ void SpectralFluxAnalyser::AnalyseSpectrum(std::vector<double> workingSamples, i
 
 	double hertzPerSample = sampleRate / 2.0 / workingSamples.size();
 
-	SpectralFluxInfo* currentInfo = new SpectralFluxInfo();
-	currentInfo->time = time;
-	currentInfo->spectralFlux = CalculateFlux();
+	SpectralFluxInfo currentInfo;
+	currentInfo.time = time;
+	currentInfo.spectralFlux = CalculateFlux();
+	//std::cout << currentInfo.spectralFlux << std::endl;
 
-	FluxSamples.push_back(*currentInfo);
-
+	FluxSamples.push_back(currentInfo);
+	
 	if (FluxSamples.size() >= thresholdWindowSize)
 	{
 		//Threshold of window surrounding sample
@@ -46,6 +48,7 @@ void SpectralFluxAnalyser::AnalyseSpectrum(std::vector<double> workingSamples, i
 
 		if (currentPeak)
 		{
+			
 			FluxSamples[lowerIndex].isPeak = true;
 		}
 		indexToProcess++;
@@ -55,8 +58,6 @@ void SpectralFluxAnalyser::AnalyseSpectrum(std::vector<double> workingSamples, i
 		//not enough samples yet
 	}
 
-	//To keep track of previous
-	previousSpectrum = workingSamples;
 }
 
 float SpectralFluxAnalyser::CalculateFlux()
@@ -72,9 +73,13 @@ float SpectralFluxAnalyser::CalculateFlux()
 		}
 		else
 		{
+			std::cout << "Current: " + std::to_string(currentSpectrum[i]) << std::endl;
+			std::cout << "Previous: " + std::to_string(previousSpectrum[i]) << std::endl;
 			//By checking if the difference is positive, it checks if the amplitude is rising
 			float diff = currentSpectrum[i] - previousSpectrum[i];
+			//std::cout << diff << std::endl;
 			float larger = (0.f > diff) ? 0.f : diff;
+			sum += larger;
 		}
 	}
 
@@ -105,6 +110,7 @@ float SpectralFluxAnalyser::CalculatePrunedFlux(int index)
 
 bool SpectralFluxAnalyser::CalculateIsPeak(int index)
 {
+	
 	if (FluxSamples[index].prunedFlux > FluxSamples[index + 1].prunedFlux && FluxSamples[index].prunedFlux > FluxSamples[index - 1].prunedFlux)
 	{
 		return true;

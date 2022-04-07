@@ -1,0 +1,42 @@
+﻿  AudioHandler.cpp
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(18,20): warning C4018: '<': signed/unsigned mismatch
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(30,41): warning C4244: 'argument': conversion from 'double' to 'const unsigned int', possible loss of data
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(60,20): warning C4018: '<': signed/unsigned mismatch
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(86,23): warning C4018: '>': signed/unsigned mismatch
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(91,23): warning C4018: '<': signed/unsigned mismatch
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(93,24): warning C4018: '<': signed/unsigned mismatch
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(95,25): warning C4018: '<': signed/unsigned mismatch
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(97,29): warning C4018: '<': signed/unsigned mismatch
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(104,30): warning C4018: '>': signed/unsigned mismatch
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(106,29): warning C4018: '<': signed/unsigned mismatch
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(113,29): warning C4018: '>': signed/unsigned mismatch
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(115,28): warning C4018: '<': signed/unsigned mismatch
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(160,23): warning C4018: '<': signed/unsigned mismatch
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(165,23): warning C4018: '<': signed/unsigned mismatch
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(170,23): warning C4018: '<': signed/unsigned mismatch
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(197,23): warning C4018: '<': signed/unsigned mismatch
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(202,23): warning C4018: '<': signed/unsigned mismatch
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(224,23): warning C4018: '<': signed/unsigned mismatch
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(243,93): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(243,44): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(248,21): warning C4018: '<': signed/unsigned mismatch
+  FFT.cpp
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\FFT.cpp(18,21): warning C4018: '<': signed/unsigned mismatch
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\FFT.cpp(45,20): warning C4018: '<': signed/unsigned mismatch
+  SpectralFluxAnalyser.cpp
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\SpectralFluxAnalyser.cpp(24,25): warning C4018: '>=': signed/unsigned mismatch
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\SpectralFluxAnalyser.cpp(52,20): warning C4018: '<': signed/unsigned mismatch
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\SpectralFluxAnalyser.cpp(56,29): warning C4244: '+=': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\SpectralFluxAnalyser.cpp(60,15): warning C4244: 'initializing': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\SpectralFluxAnalyser.cpp(71,42): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+     Creating library F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\Debug\AlgorithmicBeatMapping.lib and object F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\Debug\AlgorithmicBeatMapping.exp
+  AlgorithmicBeatMapping.vcxproj -> F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\Debug\AlgorithmicBeatMapping.dll

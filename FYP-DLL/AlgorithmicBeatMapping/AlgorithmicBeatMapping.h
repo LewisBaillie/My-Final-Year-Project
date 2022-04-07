@@ -15,9 +15,11 @@
 
 extern "C"
 {
-	ALGORITHMICBEATMAPPING_API bool MapFile(std::string fileName, int sampleRate, int numberOfChannels, int samplesPerChannel, std::vector<double> samples);
+	ALGORITHMICBEATMAPPING_API bool MapFile(LPTSTR fileNameLPT, int sampleRate, int numberOfChannels, int samplesPerChannel, float* samplesArray, int size);
+
 }
 
 extern ALGORITHMICBEATMAPPING_API int nAlgorithmicBeatMapping;
 
 ALGORITHMICBEATMAPPING_API int fnAlgorithmicBeatMapping(void);
+

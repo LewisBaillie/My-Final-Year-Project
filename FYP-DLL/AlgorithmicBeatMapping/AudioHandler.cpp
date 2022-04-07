@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "AudioHandler.h"
 
 AudioHandler::AudioHandler(int NumOfChannels, int SamplesPerChannel, int SampleRate, std::vector<double> Samples, std::string FileName)
@@ -11,7 +12,7 @@ AudioHandler::AudioHandler(int NumOfChannels, int SamplesPerChannel, int SampleR
 
 bool AudioHandler::SaveBeatMap(std::vector<float> BeatMap)
 {
-	std::string fileString = fileName + ".csv";
+	std::string fileString = fileName + ".txt";
 	std::ofstream mapFile(fileString);
 
 	for (int i = 0; i < BeatMap.size(); i++)

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "SpectralFluxAnalyser.h"
 
 std::vector<double> previousSpectrum;

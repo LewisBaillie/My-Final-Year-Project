@@ -1,9 +1,13 @@
-﻿  AudioHandler.cpp
-F:\FYP\ActiveFolder\My-Final-Year-Project\AudioHandler.cpp(38,41): warning C4244: '+=': conversion from '_Ty' to 'float', possible loss of data
+﻿  SpectralFluxAnalyser.cpp
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-StandAlone\SpectralFluxAnalyser.cpp(72,29): warning C4244: '+=': conversion from '_Ty' to 'float', possible loss of data
           with
           [
               _Ty=double
           ]
-F:\FYP\ActiveFolder\My-Final-Year-Project\AudioHandler.cpp(10): warning C4715: 'AudioHandler::LoadFile': not all control paths return a value
-F:\FYP\ActiveFolder\My-Final-Year-Project\AudioHandler.cpp(265): warning C4715: 'AudioHandler::performBeatMapping': not all control paths return a value
-  AlgorithmicBeatMappingTool.vcxproj -> F:\FYP\ActiveFolder\My-Final-Year-Project\x64\Debug\AlgorithmicBeatMappingTool.exe
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-StandAlone\SpectralFluxAnalyser.cpp(79,15): warning C4244: 'initializing': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-StandAlone\SpectralFluxAnalyser.cpp(92,135): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  AlgorithmicBeatMappingTool.vcxproj -> F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-StandAlone\x64\Debug\AlgorithmicBeatMappingTool.exe
