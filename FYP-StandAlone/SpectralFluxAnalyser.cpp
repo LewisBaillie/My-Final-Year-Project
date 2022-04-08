@@ -1,14 +1,13 @@
 #include "SpectralFluxAnalyser.h"
 
-std::vector<double> previousSpectrum;
-std::vector<double> currentSpectrum;
+
 
 SpectralFluxAnalyser::SpectralFluxAnalyser()
 {
 	indexToProcess = thresholdWindowSize / 2;
 }
 
-void SpectralFluxAnalyser::AnalyseSpectrum(std::vector<double> workingSamples, int sampleRate, float time)
+void SpectralFluxAnalyser::AnalyseSpectrum(std::vector<double> workingSamples, float time)
 {
 	previousSpectrum = currentSpectrum;
 	currentSpectrum = workingSamples;
@@ -24,8 +23,6 @@ void SpectralFluxAnalyser::AnalyseSpectrum(std::vector<double> workingSamples, i
 		//Upper Midrange: 2000 to 4000hz
 		//Presence: 4000hz to 6000hz
 		//Brilliance: 6000hz to 20,000hz
-
-	double hertzPerSample = sampleRate / 2.0 / workingSamples.size();
 
 	SpectralFluxInfo currentInfo;
 	currentInfo.time = time;
@@ -73,12 +70,13 @@ float SpectralFluxAnalyser::CalculateFlux()
 		}
 		else
 		{
-			std::cout << "Current: " + std::to_string(currentSpectrum[i]) << std::endl;
-			std::cout << "Previous: " + std::to_string(previousSpectrum[i]) << std::endl;
+
 			//By checking if the difference is positive, it checks if the amplitude is rising
 			float diff = currentSpectrum[i] - previousSpectrum[i];
-			//std::cout << diff << std::endl;
+			
 			float larger = (0.f > diff) ? 0.f : diff;
+
+			//std::cout << std::to_string(larger) << std::endl;
 			sum += larger;
 		}
 	}
