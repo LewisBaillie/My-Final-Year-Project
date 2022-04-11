@@ -22,6 +22,9 @@ public:
 	bool SaveBeatMap(std::vector<float> BeatMap);
 
 	int bucketSize = 1024;
+
+	std::vector<double> sendSpectrum;
+
 private:
 
 	int numOfChannels;
