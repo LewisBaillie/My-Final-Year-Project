@@ -15,8 +15,8 @@
 
 extern "C"
 {
-	ALGORITHMICBEATMAPPING_API bool MapFile(LPTSTR fileNameLPT, int sampleRate, int numberOfChannels, int samplesPerChannel, float* samplesArray, int size);
-
+	ALGORITHMICBEATMAPPING_API bool MapFile(const char* fileNameLPT, int sampleRate, int numberOfChannels, int samplesPerChannel);
+	ALGORITHMICBEATMAPPING_API bool PassArray(float* SamplesArray, int Size);
 }
 
 extern ALGORITHMICBEATMAPPING_API int nAlgorithmicBeatMapping;

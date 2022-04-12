@@ -1,23 +1,10 @@
 ﻿  AlgorithmicBeatMapping.cpp
   AudioHandler.cpp
-F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(30,43): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(264,73): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  SpectralFluxAnalyser.cpp
-F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\SpectralFluxAnalyser.cpp(68,29): warning C4244: '+=': conversion from '_Ty' to 'float', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\SpectralFluxAnalyser.cpp(74,15): warning C4244: 'initializing': conversion from '_Ty' to 'float', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\SpectralFluxAnalyser.cpp(89,135): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\AudioHandler.cpp(264,66): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
      Creating library F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\x64\Release\AlgorithmicBeatMapping.lib and object F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\x64\Release\AlgorithmicBeatMapping.exp
   Generating code
-  59 of 553 functions (10.7%) were compiled, the rest were copied from previous compilation.
-    13 functions were new in current compilation
-    74 functions had inline decision re-evaluated but remain unchanged
+  39 of 476 functions ( 8.2%) were compiled, the rest were copied from previous compilation.
+    8 functions were new in current compilation
+    81 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   AlgorithmicBeatMapping.vcxproj -> F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-DLL\AlgorithmicBeatMapping\x64\Release\AlgorithmicBeatMapping.dll

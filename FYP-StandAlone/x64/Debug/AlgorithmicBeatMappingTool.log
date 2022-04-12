@@ -4,7 +4,9 @@ F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-StandAlone\AudioHandler.cpp(56,41)
           [
               _Ty=double
           ]
-F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-StandAlone\AudioHandler.cpp(280,88): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-StandAlone\AudioHandler.cpp(286,88): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  FFT.cpp
+  Generating Code...
 F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-StandAlone\AudioHandler.cpp(12): warning C4715: 'AudioHandler::LoadFile': not all control paths return a value
-F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-StandAlone\AudioHandler.cpp(307): warning C4715: 'AudioHandler::performBeatMapping': not all control paths return a value
+F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-StandAlone\AudioHandler.cpp(313): warning C4715: 'AudioHandler::performBeatMapping': not all control paths return a value
   AlgorithmicBeatMappingTool.vcxproj -> F:\FYP\ActiveFolder\My-Final-Year-Project\FYP-StandAlone\x64\Debug\AlgorithmicBeatMappingTool.exe
