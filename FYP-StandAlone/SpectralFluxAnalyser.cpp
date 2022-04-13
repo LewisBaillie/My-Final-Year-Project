@@ -1,7 +1,5 @@
 #include "SpectralFluxAnalyser.h"
 
-
-
 SpectralFluxAnalyser::SpectralFluxAnalyser()
 {
 	indexToProcess = thresholdWindowSize / 2;

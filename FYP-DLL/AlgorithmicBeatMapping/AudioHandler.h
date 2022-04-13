@@ -14,7 +14,6 @@ class AudioHandler
 public:
 	AudioHandler(int NumOfChannels, int SamplesPerChannel, int SampleRate, std::vector<double> Samples, std::string FileName);
 	std::vector<double> CombineChannels();
-	static void fft(FFT fftHandle, ComplexArray& sampleArray);
 	std::vector<double> ConvertToAmplitude(ComplexArray sampleArray);
 	std::vector<float> beatMap;
 

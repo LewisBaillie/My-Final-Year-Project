@@ -17,7 +17,7 @@ bool AudioHandler::SaveBeatMap(std::vector<float> BeatMap)
 
 	for (int i = 0; i < BeatMap.size(); i++)
 	{
-		mapFile << std::to_string(BeatMap[i] / 1000.f) + "\n";
+		mapFile << std::to_string(BeatMap[i]) + "\n";
 	}
 
 	mapFile.close();
@@ -42,14 +42,7 @@ std::vector<double> AudioHandler::CombineChannels()
 			index++;
 		}
 	}
-
 	return workingSamples;
-}
-
-void AudioHandler::fft(FFT fftHandle, ComplexArray& sampleArray)
-{
-	fftHandle.fft(sampleArray);
-	fftHandle.window(sampleArray);
 }
 
 std::vector<double> AudioHandler::ConvertToAmplitude(ComplexArray sampleArray)
@@ -58,7 +51,7 @@ std::vector<double> AudioHandler::ConvertToAmplitude(ComplexArray sampleArray)
 	double normalizedAmp;
 	for (int i = 0; i < sampleArray.size(); i++)
 	{
-		normalizedAmp = sqrt(((sampleArray[i].real() * sampleArray[i].real()) + (sampleArray[i].imag() * sampleArray[i].imag()))) / bucketSize;
+		normalizedAmp = sqrt(((sampleArray[i].real() * sampleArray[i].real()) + (sampleArray[i].imag() * sampleArray[i].imag())));
 		newSamples.push_back(normalizedAmp);
 	}
 
@@ -142,22 +135,10 @@ bool AudioHandler::performBeatMapping()
 			}
 
 			fftHandle.fft(sampleArray);
-			//fftHandle.window(sampleArray);
 			fftHandle.fft(sampleArray2);
-			//fftHandle.window(sampleArray2);
 			fftHandle.fft(sampleArray3);
-			//fftHandle.window(sampleArray3);
 
 			workSamples.erase(workSamples.begin(), workSamples.begin() + (bucketSize * 3));
-
-			/*std::thread th1(p_fft, fftHandle, sampleArray);
-			std::thread th2(p_fft, fftHandle, sampleArray2);
-			std::thread th3(p_fft, fftHandle, sampleArray3);
-
-
-			th1.join();
-			th2.join();
-			th3.join();*/
 
 			arrayToAdd.clear();
 			arrayToAdd = ConvertToAmplitude(sampleArray);
@@ -194,18 +175,9 @@ bool AudioHandler::performBeatMapping()
 			}
 
 			fftHandle.fft(sampleArray);
-			//fftHandle.window(sampleArray);
 			fftHandle.fft(sampleArray2);
-			//fftHandle.window(sampleArray2);
 
 			workSamples.erase(workSamples.begin(), workSamples.begin() + (bucketSize * 2));
-
-			/*std::thread th1(p_fft, fftHandle, std::ref(sampleArray));
-			std::thread th2(p_fft, fftHandle, std::ref(sampleArray2));
-			samples.erase(samples.begin(), samples.begin() + handle.bucketSize * 2);
-
-			th1.join();
-			th2.join();*/
 
 			arrayToAdd.clear();
 			arrayToAdd = ConvertToAmplitude(sampleArray);
@@ -232,14 +204,8 @@ bool AudioHandler::performBeatMapping()
 			}
 
 			fftHandle.fft(sampleArray);
-			//fftHandle.window(sampleArray);
 
 			workSamples.erase(workSamples.begin(), workSamples.begin() + (bucketSize));
-
-			/*std::thread th1(p_fft, fftHandle, std::ref(sampleArray));
-			samples.erase(samples.begin(), samples.begin() + handle.bucketSize);
-
-			th1.join();*/
 
 			arrayToAdd.clear();
 			arrayToAdd = ConvertToAmplitude(sampleArray);
@@ -251,21 +217,18 @@ bool AudioHandler::performBeatMapping()
 	}
 
 
-	int index = 0;
-
-	while (workingSpectrum.size() > 0)
+	for (int i = 0; i < workingSpectrum.size() / bucketSize; i++)
 	{
 		sendSpectrum.clear();
-		for (int i = 0; i < bucketSize; i++)
+		for (int j = 0; j < bucketSize; j++)
 		{
-			sendSpectrum.push_back(workingSpectrum[i]);
-			index++;
+			sendSpectrum.push_back(workingSpectrum[j]);
 		}
-		sfa.AnalyseSpectrum(sendSpectrum, ((1.0 / sampleRate) * index) * bucketSize);
+		sfa.AnalyseSpectrum(sendSpectrum, (float)((1.0 / sampleRate) * i) * bucketSize);
 		workingSpectrum.erase(workingSpectrum.begin(), workingSpectrum.begin() + bucketSize);
 	}
 
-	std::cout << "sfa done" << std::endl;
+	float prevTime = 0.f;
 
 	for (int i = 0; i < sfa.FluxSamples.size(); i++)
 	{
@@ -273,18 +236,23 @@ bool AudioHandler::performBeatMapping()
 		{
 			if (sfa.FluxSamples[i].isPeak)
 			{
+				
 				beatMap.push_back(sfa.FluxSamples[i].time);
+				prevTime = sfa.FluxSamples[i].time;
 			}
 		}
 		else
 		{
 			if (sfa.FluxSamples[i].isPeak)
 			{
-				beatMap.push_back(sfa.FluxSamples[i].time - sfa.FluxSamples[i - 1].time);
+
+				beatMap.push_back(sfa.FluxSamples[i].time - prevTime);
+				prevTime = sfa.FluxSamples[i].time;
 			}
 		}
 	}
 
+	
 	std::cout << beatMap.size() << std::endl;
 	return SaveBeatMap(beatMap);
 }
