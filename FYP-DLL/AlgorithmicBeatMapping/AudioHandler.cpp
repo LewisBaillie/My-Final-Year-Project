@@ -64,6 +64,7 @@ bool AudioHandler::performBeatMapping()
 	SpectralFluxAnalyser sfa;
 
 	std::vector<double> workSamples;
+	//workSamples = samples;
 
 	FFT fftHandle;
 	std::vector<double> workingSpectrum;
@@ -224,7 +225,7 @@ bool AudioHandler::performBeatMapping()
 		{
 			sendSpectrum.push_back(workingSpectrum[j]);
 		}
-		sfa.AnalyseSpectrum(sendSpectrum, (float)((1.0 / sampleRate) * i) * bucketSize);
+		sfa.AnalyseSpectrum(sendSpectrum, (1.0 / sampleRate) * i * bucketSize);
 		workingSpectrum.erase(workingSpectrum.begin(), workingSpectrum.begin() + bucketSize);
 	}
 

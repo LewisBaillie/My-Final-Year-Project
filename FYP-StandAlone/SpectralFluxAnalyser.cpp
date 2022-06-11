@@ -21,6 +21,7 @@ void SpectralFluxAnalyser::AnalyseSpectrum(std::vector<double> workingSamples, f
 		//Upper Midrange: 2000 to 4000hz
 		//Presence: 4000hz to 6000hz
 		//Brilliance: 6000hz to 20,000hz
+	//
 
 	SpectralFluxInfo currentInfo;
 	currentInfo.time = time;

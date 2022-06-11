@@ -21,7 +21,7 @@ public:
 	bool performBeatMapping(AudioHandler handle);
 	bool SaveBeatMap(std::vector<float> BeatMap);
 
-	int bucketSize = 1024;
+	int bucketSize = 512;
 private:
 	bool mSuccess = false;
 

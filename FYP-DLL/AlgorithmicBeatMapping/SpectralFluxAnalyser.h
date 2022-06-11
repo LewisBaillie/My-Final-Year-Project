@@ -26,7 +26,7 @@ public:
 	std::vector<SpectralFluxInfo> FluxSamples;
 private:
 	float thresholdMultiplier = 1.25f;
-	int thresholdWindowSize = 50;
+	int thresholdWindowSize = 100;
 	int indexToProcess;
 	std::vector<double> previousSpectrum;
 	std::vector<double> currentSpectrum;

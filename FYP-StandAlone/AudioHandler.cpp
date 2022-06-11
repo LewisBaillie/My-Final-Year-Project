@@ -4,7 +4,7 @@ std::vector<double> sendSpectrum;
 
 bool AudioHandler::LoadFile()
 {
-	mSuccess = audioObj.load("AMinorBird.wav");
+	mSuccess = audioObj.load("60BPM.wav");
 	if (mSuccess)
 	{
 		return mSuccess;
@@ -13,7 +13,7 @@ bool AudioHandler::LoadFile()
 
 bool AudioHandler::SaveBeatMap(std::vector<float> BeatMap)
 {
-	std::string fileString = "AMinorBird.txt";
+	std::string fileString = "60BPM.txt";
 	std::ofstream mapFile(fileString);
 
 	for (int i = 0; i < BeatMap.size(); i++)
@@ -95,9 +95,9 @@ bool AudioHandler::performBeatMapping(AudioHandler handle)
 	{
 		FFT fftHandle;
 
-
 		samples = handle.CombineChannels(handle);
 		std::cout << std::to_string(samples.size()) << std::endl;
+		std::cout << std::string("Starting FFT") << std::endl;
 
 		int threads = 3;
 		while (samples.size() > 0)
@@ -106,6 +106,8 @@ bool AudioHandler::performBeatMapping(AudioHandler handle)
 			{
 				threads = 3;
 			}
+
+			//PADDING
 
 			if (samples.size() < (bucketSize * 3))
 			{
@@ -166,13 +168,10 @@ bool AudioHandler::performBeatMapping(AudioHandler handle)
 
 				//fftHandle.window(sampleArray);
 				fftHandle.fft(sampleArray);
-				//
 				//fftHandle.window(sampleArray2);
 				fftHandle.fft(sampleArray2);
-				//
 				//fftHandle.window(sampleArray3);
 				fftHandle.fft(sampleArray3);
-				//
 
 				samples.erase(samples.begin(), samples.begin() + (bucketSize * 3));
 
@@ -301,20 +300,23 @@ bool AudioHandler::performBeatMapping(AudioHandler handle)
 		//	workingSpectrum.erase(workingSpectrum.begin(), workingSpectrum.begin() + handle.bucketSize);
 		//}
 
-		for (int i = 0; i < workingSpectrum.size() / handle.bucketSize; i++)
+		float capacity = workingSpectrum.size() / handle.bucketSize;
+
+		for (int i = 0; i < capacity; i++)
 		{
 			sendSpectrum.clear();
 			for (int j = 0; j < handle.bucketSize; j++)
 			{
 				sendSpectrum.push_back(workingSpectrum[j]);
 			}
-			sfa.AnalyseSpectrum(sendSpectrum, (float)((1.0 / handle.audioObj.getSampleRate())* i)* handle.bucketSize);
+			sfa.AnalyseSpectrum(sendSpectrum, (1.0f / handle.audioObj.getSampleRate())* i * handle.bucketSize);
 			workingSpectrum.erase(workingSpectrum.begin(), workingSpectrum.begin() + handle.bucketSize);
 		}
 
 		std::cout << "sfa done" << std::endl;
 		int counter = 0;
 		float prevTime = 0.f;
+		handle.beatMap.clear();
 		for (int i = 0; i < sfa.FluxSamples.size(); i++)
 		{
 			if (i == 0)

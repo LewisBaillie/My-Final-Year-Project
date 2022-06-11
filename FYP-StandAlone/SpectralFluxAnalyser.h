@@ -25,8 +25,8 @@ public:
 	bool CalculateIsPeak(int index);
 	std::vector<SpectralFluxInfo> FluxSamples;
 private:
-	float thresholdMultiplier = 1.25f;
-	int thresholdWindowSize = 50;
+	float thresholdMultiplier = 1.5f;
+	int thresholdWindowSize = 100;
 	int indexToProcess;
 	std::vector<double> previousSpectrum;
 	std::vector<double> currentSpectrum;

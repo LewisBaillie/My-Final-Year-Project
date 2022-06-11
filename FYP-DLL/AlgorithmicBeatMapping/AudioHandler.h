@@ -20,7 +20,7 @@ public:
 	bool performBeatMapping();
 	bool SaveBeatMap(std::vector<float> BeatMap);
 
-	int bucketSize = 1024;
+	int bucketSize = 512;
 
 	std::vector<double> sendSpectrum;
 
