@@ -166,12 +166,15 @@ bool AudioHandler::performBeatMapping(AudioHandler handle)
 					}
 				}
 
-				//fftHandle.window(sampleArray);
+				
 				fftHandle.fft(sampleArray);
-				//fftHandle.window(sampleArray2);
+				//fftHandle.window(sampleArray);
+				
 				fftHandle.fft(sampleArray2);
-				//fftHandle.window(sampleArray3);
+				//fftHandle.window(sampleArray2);
+				
 				fftHandle.fft(sampleArray3);
+				//fftHandle.window(sampleArray3);
 
 				samples.erase(samples.begin(), samples.begin() + (bucketSize * 3));
 
@@ -218,10 +221,9 @@ bool AudioHandler::performBeatMapping(AudioHandler handle)
 					}
 				}
 
-				//fftHandle.window(sampleArray);
 				fftHandle.fft(sampleArray);
 				//fftHandle.window(sampleArray);
-				//fftHandle.window(sampleArray2);
+
 				fftHandle.fft(sampleArray2);
 				//fftHandle.window(sampleArray2);
 
@@ -258,8 +260,8 @@ bool AudioHandler::performBeatMapping(AudioHandler handle)
 					}
 				}
 
-				//fftHandle.window(sampleArray);
 				fftHandle.fft(sampleArray);
+				//fftHandle.window(sampleArray);
 				//fftHandle.window(sampleArray);
 
 				samples.erase(samples.begin(), samples.begin() + (bucketSize));
