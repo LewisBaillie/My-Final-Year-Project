@@ -5,8 +5,9 @@ SpectralFluxAnalyser::SpectralFluxAnalyser()
 	indexToProcess = thresholdWindowSize / 2;
 }
 
-void SpectralFluxAnalyser::AnalyseSpectrum(std::vector<double> workingSamples, float time)
+void SpectralFluxAnalyser::AnalyseSpectrum(std::vector<double> workingSamples, float time, int SampleRate)
 {
+	sampleRate = SampleRate;
 	previousSpectrum = currentSpectrum;
 	currentSpectrum = workingSamples;
 	//EXAMPLE of how to work out hz per bin
@@ -25,7 +26,7 @@ void SpectralFluxAnalyser::AnalyseSpectrum(std::vector<double> workingSamples, f
 
 	SpectralFluxInfo currentInfo;
 	currentInfo.time = time;
-	currentInfo.spectralFlux = CalculateFlux();
+	currentInfo.spectralFlux = CalculateFlux(currentInfo);
 	//std::cout << currentInfo.spectralFlux << std::endl;
 
 	FluxSamples.push_back(currentInfo);
@@ -44,7 +45,6 @@ void SpectralFluxAnalyser::AnalyseSpectrum(std::vector<double> workingSamples, f
 
 		if (currentPeak)
 		{
-			
 			FluxSamples[lowerIndex].isPeak = true;
 		}
 		indexToProcess++;
@@ -53,23 +53,29 @@ void SpectralFluxAnalyser::AnalyseSpectrum(std::vector<double> workingSamples, f
 	{
 		//not enough samples yet
 	}
-
 }
 
-float SpectralFluxAnalyser::CalculateFlux()
+float SpectralFluxAnalyser::CalculateFlux(SpectralFluxInfo& current)
 {
 	float sum = 0.f;
 
+	int biggerIndex = 0;
+	int count = 0;
 
 	for (int i = 0; i < currentSpectrum.size(); i++)
 	{
+		if (currentSpectrum[i] > biggerIndex)
+		{
+			biggerIndex = currentSpectrum[i];
+			count = i;
+		}
+
 		if (previousSpectrum.empty())
 		{
 			sum += currentSpectrum[i];
 		}
 		else
 		{
-
 			//By checking if the difference is positive, it checks if the amplitude is rising
 			float diff = currentSpectrum[i] - previousSpectrum[i];
 			
@@ -79,6 +85,8 @@ float SpectralFluxAnalyser::CalculateFlux()
 			sum += larger;
 		}
 	}
+
+	current.biggestIndex = count;
 
 	return sum;
 }
@@ -107,9 +115,10 @@ float SpectralFluxAnalyser::CalculatePrunedFlux(int index)
 
 bool SpectralFluxAnalyser::CalculateIsPeak(int index)
 {
-	
 	if (FluxSamples[index].prunedFlux > FluxSamples[index + 1].prunedFlux && FluxSamples[index].prunedFlux > FluxSamples[index - 1].prunedFlux)
 	{
+		FluxSamples[index].time = FluxSamples[index].time + (FluxSamples[index].biggestIndex * (1.0f / sampleRate));
+
 		return true;
 	}
 	else

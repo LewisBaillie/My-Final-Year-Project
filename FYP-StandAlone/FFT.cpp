@@ -52,3 +52,6 @@ void FFT::window(ComplexArray& windowSamples)
 		windowSamples[i] = windowSamples[i] * (0.5 * (1 - cos((2*PI*(i / windowSamples.size())))));
 	}
 }
+
+
+

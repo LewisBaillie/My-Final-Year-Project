@@ -4,7 +4,7 @@ std::vector<double> sendSpectrum;
 
 bool AudioHandler::LoadFile()
 {
-	mSuccess = audioObj.load("AMinorBird.wav");
+	mSuccess = audioObj.load("60BPM.wav");
 	if (mSuccess)
 	{
 		return mSuccess;
@@ -13,7 +13,7 @@ bool AudioHandler::LoadFile()
 
 bool AudioHandler::SaveBeatMap(std::vector<float> BeatMap)
 {
-	std::string fileString = "AMinorBird.txt";
+	std::string fileString = "60BPM.txt";
 	std::ofstream mapFile(fileString);
 
 	for (int i = 0; i < BeatMap.size(); i++)
@@ -310,7 +310,7 @@ bool AudioHandler::performBeatMapping(AudioHandler handle)
 			{
 				sendSpectrum.push_back(workingSpectrum[j]);
 			}
-			sfa.AnalyseSpectrum(sendSpectrum, (1.0f / handle.audioObj.getSampleRate())* i * handle.bucketSize);
+			sfa.AnalyseSpectrum(sendSpectrum, (1.0f / handle.audioObj.getSampleRate())* i * handle.bucketSize, handle.audioObj.getSampleRate());
 			workingSpectrum.erase(workingSpectrum.begin(), workingSpectrum.begin() + handle.bucketSize);
 		}
 
