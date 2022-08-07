@@ -280,7 +280,7 @@ bool AudioHandler::performBeatMapping(AudioHandler handle)
 					workingSpectrum.push_back(arrayToAdd[j]);
 				}
 				arrayToAdd.clear();
-				//arrayToAdd = ConvertToAmplitude(sampleArray2);
+				arrayToAdd = ConvertToAmplitude(sampleArray2);
 				for (int k = 0; k < arrayToAdd.size(); k++)
 				{
 					workingSpectrum.push_back(arrayToAdd[k]);

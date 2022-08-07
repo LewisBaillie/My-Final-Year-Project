@@ -259,7 +259,7 @@ bool AudioHandler::performBeatMapping()
 	}
 
 	float prevTime = 0.f;
-
+	beatMap.clear();
 	for (int i = 0; i < sfa.FluxSamples.size(); i++)
 	{
 		if (i == 0)
