@@ -6,8 +6,9 @@ SpectralFluxAnalyser::SpectralFluxAnalyser()
 	indexToProcess = thresholdWindowSize / 2;
 }
 
-void SpectralFluxAnalyser::AnalyseSpectrum(std::vector<double> workingSamples, float time)
+void SpectralFluxAnalyser::AnalyseSpectrum(std::vector<double> workingSamples, float time, int SampleRate)
 {
+	sampleRate = SampleRate;
 	previousSpectrum = currentSpectrum;
 	currentSpectrum = workingSamples;
 	//EXAMPLE of how to work out hz per bin

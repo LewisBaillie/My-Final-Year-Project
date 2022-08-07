@@ -18,15 +18,16 @@ class SpectralFluxAnalyser
 {
 public:
 	SpectralFluxAnalyser();
-	void AnalyseSpectrum(std::vector<double> workingSamples, float time);
+	void AnalyseSpectrum(std::vector<double> workingSamples, float time, int SampleRate);
 	float CalculateFlux();
 	float CalculateThreshold(int index);
 	float CalculatePrunedFlux(int index);
 	bool CalculateIsPeak(int index);
 	std::vector<SpectralFluxInfo> FluxSamples;
 private:
-	float thresholdMultiplier = 1.25f;
-	int thresholdWindowSize = 100;
+	int sampleRate;
+	float thresholdMultiplier = 1.5f;
+	int thresholdWindowSize = 50;
 	int indexToProcess;
 	std::vector<double> previousSpectrum;
 	std::vector<double> currentSpectrum;

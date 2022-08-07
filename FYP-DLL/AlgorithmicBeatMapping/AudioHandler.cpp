@@ -70,15 +70,31 @@ bool AudioHandler::performBeatMapping()
 	std::vector<double> workingSpectrum;
 	workSamples = CombineChannels();
 
+	bool threadAlloc = false;
 	int threads = 3;
 	while (workSamples.size() > 0)
 	{
-		if (workSamples.size() > bucketSize * 3)
+		if (workSamples.size() > bucketSize * 3 && !threadAlloc)
 		{
 			threads = 3;
+			threadAlloc = true;
 		}
 
-		if (workSamples.size() < (bucketSize * 3))
+		if (workSamples.size() == bucketSize * 2 && !threadAlloc)
+		{
+			threads = 2;
+			threadAlloc = true;
+		}
+
+		if (workSamples.size() == bucketSize && !threadAlloc)
+		{
+			threads = 1;
+			threadAlloc = true;
+		}
+
+		//PADDING
+
+		if (workSamples.size() < (bucketSize * 3) && !threadAlloc)
 		{
 			if (workSamples.size() < (bucketSize * 2))
 			{
@@ -89,25 +105,30 @@ bool AudioHandler::performBeatMapping()
 						workSamples.push_back(0);
 					}
 					threads = 1;
+					threadAlloc = true;
 				}
-				else if (workSamples.size() > (bucketSize))
+				else if (workSamples.size() > (bucketSize) && !threadAlloc)
 				{
 					while (workSamples.size() < (bucketSize * 2))
 					{
 						workSamples.push_back(0);
 					}
 					threads = 2;
+					threadAlloc = true;
 				}
 			}
-			else if (workSamples.size() > (bucketSize * 2))
+			else if (workSamples.size() > (bucketSize * 2) && !threadAlloc)
 			{
 				while (workSamples.size() < (bucketSize * 3))
 				{
 					workSamples.push_back(0);
 				}
 				threads = 3;
+				threadAlloc = true;
 			}
 		}
+
+		threadAlloc = false;
 
 		Complex workingSample;
 		ComplexArray sampleArray;
@@ -159,6 +180,9 @@ bool AudioHandler::performBeatMapping()
 			{
 				workingSpectrum.push_back(arrayToAdd[l]);
 			}
+			sampleArray.clear();
+			sampleArray2.clear();
+			sampleArray3.clear();
 		}
 		else if (threads == 2)
 		{
@@ -192,6 +216,9 @@ bool AudioHandler::performBeatMapping()
 			{
 				workingSpectrum.push_back(arrayToAdd[k]);
 			}
+
+			sampleArray.clear();
+			sampleArray2.clear();
 		}
 		else
 		{
@@ -214,18 +241,20 @@ bool AudioHandler::performBeatMapping()
 			{
 				workingSpectrum.push_back(arrayToAdd[j]);
 			}
+			sampleArray.clear();
 		}
 	}
 
+	float capacity = workingSpectrum.size() / bucketSize;
 
-	for (int i = 0; i < workingSpectrum.size() / bucketSize; i++)
+	for (int i = 0; i < capacity; i++)
 	{
 		sendSpectrum.clear();
 		for (int j = 0; j < bucketSize; j++)
 		{
 			sendSpectrum.push_back(workingSpectrum[j]);
 		}
-		sfa.AnalyseSpectrum(sendSpectrum, (1.0 / sampleRate) * i * bucketSize);
+		sfa.AnalyseSpectrum(sendSpectrum, (1.0f / sampleRate) * i * bucketSize, sampleRate);
 		workingSpectrum.erase(workingSpectrum.begin(), workingSpectrum.begin() + bucketSize);
 	}
 

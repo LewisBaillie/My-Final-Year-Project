@@ -4,7 +4,7 @@
 #include <vector>
 #include <complex>
 
-#define PI 3.14159265358979323846
+#define PI 3.141592653589793238460
 
 typedef std::complex<double> Complex;
 typedef std::vector<Complex> ComplexArray;

@@ -24,6 +24,7 @@ public:
 	int bucketSize = 512;
 private:
 	bool mSuccess = false;
+	ComplexArray printArray;
 
 	/*TO REPLACE THE AUDIOFILE.H VALUES
 	* double numOfChannels;
